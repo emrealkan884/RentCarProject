@@ -12,15 +12,18 @@ namespace ConsoleUI
         {
          
             CarManager carManager = new CarManager(new EfCarDal());
-            //carManager.Delete(4);
+           
+            //carManager.Delete(new Car { Id = 3005 });
             foreach (var car in carManager.GetAll())
             {
                 Console.WriteLine(car.Description);
             }
 
-            // car1 = new Car { BrandId = 4, ColorId = 4, ModelYear = 2019, DailyPrice = 1000, Description = "Mercedes" };
+            //Car car1 = new Car {BrandId = 8, ColorId = 9, ModelYear = 2021, DailyPrice = 10000, Description = "Bugatti" };
             //carManager.Add(car1);
-            
+            //Car car2 = new Car { BrandId = 10, ColorId = 3, ModelYear = 2020, DailyPrice = 80000, Description = "Ferrari" };
+            //carManager.Add(car2);
+
         }
     }
 }

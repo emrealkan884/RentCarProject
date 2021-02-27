@@ -24,16 +24,9 @@ namespace Business.Concrete
                 _carDal.Add(entity);
             }
         }
-
-        public void Delete(int id)
+        public void Delete(Car entity)
         {
-            foreach (var car in _carDal.GetAll())
-            {
-                if (car.Id == id)
-                {
-                    _carDal.Delete(car);
-                }
-            }
+            _carDal.Delete(entity);
         }
 
         public List<Car> GetAll()
