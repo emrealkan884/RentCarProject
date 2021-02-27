@@ -1,8 +1,10 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -23,13 +25,15 @@ namespace Business.Concrete
             }
         }
 
-        public void Delete(Car entity, int id)
+        public void Delete(int id)
         {
-            if (id == entity.Id)
+            foreach (var car in _carDal.GetAll())
             {
-                _carDal.Delete(entity);
+                if (car.Id == id)
+                {
+                    _carDal.Delete(car);
+                }
             }
-            
         }
 
         public List<Car> GetAll()
