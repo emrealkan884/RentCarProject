@@ -23,6 +23,15 @@ namespace Business.Concrete
             }
         }
 
+        public void Delete(Car entity, int id)
+        {
+            if (id == entity.Id)
+            {
+                _carDal.Delete(entity);
+            }
+            
+        }
+
         public List<Car> GetAll()
         {
             return _carDal.GetAll();//Hazır fonksiyon
