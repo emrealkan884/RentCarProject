@@ -14,9 +14,9 @@ namespace ConsoleUI
             CarManager carManager = new CarManager(new EfCarDal());
            
             //carManager.Delete(new Car { Id = 3005 });
-            foreach (var car in carManager.GetAll())
+            foreach (var car in carManager.GetCarDetails())
             {
-                Console.WriteLine(car.Description);
+                Console.WriteLine(car.BrandName+" - "+ car.CarName+" - "+ car.ColorName+" - "+car.DailyPrice);
             }
 
             //Car car1 = new Car {BrandId = 8, ColorId = 9, ModelYear = 2021, DailyPrice = 10000, Description = "Bugatti" };
