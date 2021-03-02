@@ -16,10 +16,24 @@ namespace ConsoleUI
             //DeleteMethod(carManager);
             //AddMethod(carManager);
 
-            foreach (var car in carManager.GetCarDetails())
+            var result = carManager.GetCarDetails();
+            if (result.Success == true)
             {
-                Console.WriteLine(car.BrandName + " - " + car.CarName + "-" +car.ColorName + " - " + car.DailyPrice);
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine(car.CarName + "/" + car.BrandName);
+                }
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
+            /*foreach (var car in carManager.GetCarDetails().Data)
+            {
+                Console.WriteLine(car.BrandName + " - " + car.CarName + "-" + car.ColorName + " - " + car.DailyPrice);
+            }*/
+            //Console.WriteLine(carManager.GetById(2).DailyPrice);
 
         }
 
