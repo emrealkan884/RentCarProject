@@ -20,19 +20,19 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public IResult Add(Car entity)
+        public IResult Add(Car car)
         {
-            if (entity.Description.Length<2 && entity.DailyPrice<0)
+            if (car.Description.Length<2 && car.DailyPrice<0)
             {
-                return new ErrorResult(Messages.CarDontAdded);
+                return new ErrorResult(Messages.CarNotAdded);
             }
-            _carDal.Add(entity);
+            _carDal.Add(car);
             return new Result(true,Messages.CarAdded);
 
         }
-        public IResult Delete(Car entity)
+        public IResult Delete(Car car)
         {
-            _carDal.Delete(entity);
+            _carDal.Delete(car);
             return new Result(true , "Ürün silindi");
         }
 
@@ -57,12 +57,18 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id));
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id),Messages.GetCarsByBrandId);
         }
 
         public IDataResult<List<Car>> GetCarsByColorId(int id)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id));
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id),Messages.GetCarsByColorId);
+        }
+
+        public IResult Update(Car car)
+        {
+           _carDal.Update(car);
+            return new SuccessResult(Messages.CarUpdated);
         }
     }
 }
