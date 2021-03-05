@@ -1,6 +1,4 @@
 ﻿using Business.Abstract;
-using Business.Concrete;
-using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,22 +7,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebAPı.Controllers
+namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CarsController : ControllerBase
+    public class RentalsController : ControllerBase
     {
-        ICarService _carService;
-        public CarsController(ICarService carService)
+        IRentalService _rentalService;
+
+        public RentalsController(IRentalService rentalService)
         {
-            _carService = carService;
+            _rentalService = rentalService;
         }
 
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _carService.GetAll();
+            var result = _rentalService.GetAll();
             if (result.Success)
             {
                 return Ok(result.Data);
@@ -35,7 +34,7 @@ namespace WebAPı.Controllers
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {
-            var result = _carService.GetById(id);
+            var result = _rentalService.GetById(id);
             if (result.Success)
             {
                 return Ok(result.Data);
@@ -44,9 +43,9 @@ namespace WebAPı.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Car car)
+        public IActionResult Add(Rental rental)
         {
-            var result = _carService.Add(car);
+            var result = _rentalService.Add(rental);
             if (result.Success)
             {
                 return Ok(result);
@@ -55,9 +54,9 @@ namespace WebAPı.Controllers
         }
 
         [HttpPost("delete")]
-        public IActionResult Delete(Car car)
+        public IActionResult Delete(Rental rental)
         {
-            var result = _carService.Delete(car);
+            var result = _rentalService.Delete(rental);
             if (result.Success)
             {
                 return Ok(result);
@@ -66,9 +65,9 @@ namespace WebAPı.Controllers
         }
 
         [HttpPost("update")]
-        public IActionResult Update(Car car)
+        public IActionResult Update(Rental rental)
         {
-            var result = _carService.Update(car);
+            var result = _rentalService.Update(rental);
             if (result.Success)
             {
                 return Ok(result);
@@ -76,32 +75,10 @@ namespace WebAPı.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getcarsbybrandid")]
-        public IActionResult GetCarsByBrandId(int id)
+        [HttpGet("getrentaldetails")]
+        public IActionResult GetRentalDetails()
         {
-            var result = _carService.GetCarsByBrandId(id);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
-
-        [HttpGet("getcarsbycolordid")]
-        public IActionResult GetCarsByColorId(int id)
-        {
-            var result = _carService.GetCarsByColorId(id);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
-
-        [HttpGet("getcardetails")]
-        public IActionResult GetCarDetail()
-        {
-            var result = _carService.GetCarDetails();
+            var result = _rentalService.GetRentalDetails();
             if (result.Success)
             {
                 return Ok(result);

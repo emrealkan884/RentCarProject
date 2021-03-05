@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebAPı
+namespace WebAPI
 {
     public class Startup
     {
