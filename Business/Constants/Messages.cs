@@ -29,7 +29,17 @@ namespace Business.Constants
         public static string RentalsListed = "Kiralamalar listelendi";
         public static string GetRentalByRentalId = "Kiralama Id'sine göre getirildi";
         public static string RentalNotAdded = "Kiralama eklenmedi";
-        
+        public static string ColorUpdated = "Renk, güncellendi";
+        public static string ColorDeleted = "Renk silindi";
+        public static string ColorAdded = "Renk eklendi";
+        public static string ColorssListed = "Renkler listelendi";
+        public static string GetColorByColorId = "Renk Id'sine göre getirildi";
+        public static string BrandUpdated = "Marka, güncellendi";
+        public static string BrandDeleted = "Marka silindi";
+        public static string BrandAdded = "Marka eklendi";
+        public static string BrandsListed = "Markalar listelendi";
+        public static string GetBrandByBrandId = "Marka Id'sine göre getirildi";
+
 
 
     }
