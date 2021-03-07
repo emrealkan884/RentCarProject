@@ -22,6 +22,9 @@ namespace Business.Concrete
 
         public IResult Add(Car car)
         {
+            //Validation(Doğrulama) = nesnenin(car) yapısal olarak uygun olup olmadığını kontrol etmeye doğrulama denir.
+            //Business Codes(iş kuralı) = Örneğin ehliyet alacak birisine ehliyet verip vermeyeceğiniz.Motordan 70 aldı mı vs.
+
             if (car.Description.Length<2 && car.DailyPrice<0)
             {
                 return new ErrorResult(Messages.CarNotAdded);
