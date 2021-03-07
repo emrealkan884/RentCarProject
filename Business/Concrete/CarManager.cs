@@ -1,10 +1,14 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation.FluentValidation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,15 +24,12 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
+        [ValidationAspect(typeof(CarValidator))]//Add methodunu doğrula CarValidator'deki kurallara göre.
         public IResult Add(Car car)
         {
             //Validation(Doğrulama) = nesnenin(car) yapısal olarak uygun olup olmadığını kontrol etmeye doğrulama denir.
             //Business Codes(iş kuralı) = Örneğin ehliyet alacak birisine ehliyet verip vermeyeceğiniz.Motordan 70 aldı mı vs.
 
-            if (car.CarName.Length<2 && car.DailyPrice<0)
-            {
-                return new ErrorResult(Messages.CarNotAdded);
-            }
             _carDal.Add(car);
             return new Result(true,Messages.CarAdded);
 
