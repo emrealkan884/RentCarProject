@@ -39,8 +39,7 @@ namespace Business.Constants
         public static string BrandAdded = "Marka eklendi";
         public static string BrandsListed = "Markalar listelendi";
         public static string GetBrandByBrandId = "Marka Id'sine göre getirildi";
-
-
-
+        public static string CarCountOfBrandError = "Marka limiti aşıldığı için yeni ürün eklenemiyor";
+        public static string CarDeleted = "Araç silindi";
     }
 }

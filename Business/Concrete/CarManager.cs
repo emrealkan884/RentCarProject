@@ -3,6 +3,7 @@ using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation.FluentValidation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
@@ -30,14 +31,20 @@ namespace Business.Concrete
             //Validation(Doğrulama) = nesnenin(car) yapısal olarak uygun olup olmadığını kontrol etmeye doğrulama denir.
             //Business Codes(iş kuralı) = Örneğin ehliyet alacak birisine ehliyet verip vermeyeceğiniz.Motordan 70 aldı mı vs.
 
+            IResult result = BusinessRules.Run(CheckIfProductCountOfBrandCorrect(car.BrandId));
+            if (result!=null)
+            {
+                return result;
+            }
+
             _carDal.Add(car);
-            return new Result(true,Messages.CarAdded);
+            return new SuccessResult(Messages.CarAdded);
 
         }
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
-            return new Result(true , "Ürün silindi");
+            return new SuccessResult(Messages.CarDeleted);
         }
 
         public IDataResult<List<Car>> GetAll()
@@ -74,5 +81,17 @@ namespace Business.Concrete
            _carDal.Update(car);
             return new SuccessResult(Messages.CarUpdated);
         }
+
+        private IResult CheckIfProductCountOfBrandCorrect(int brandId)
+        {
+            var result = _carDal.GetAll(p => p.BrandId == brandId).Count;
+            if (result >= 10)
+            {
+                return new ErrorResult(Messages.CarCountOfBrandError);
+            }
+            return new SuccessResult();
+        }
+
+
     }
 }
