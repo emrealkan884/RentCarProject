@@ -32,7 +32,7 @@ namespace Business.Constants
         public static string ColorUpdated = "Renk, güncellendi";
         public static string ColorDeleted = "Renk silindi";
         public static string ColorAdded = "Renk eklendi";
-        public static string ColorssListed = "Renkler listelendi";
+        public static string ColorsListed = "Renkler listelendi";
         public static string GetColorByColorId = "Renk Id'sine göre getirildi";
         public static string BrandUpdated = "Marka, güncellendi";
         public static string BrandDeleted = "Marka silindi";
@@ -41,5 +41,6 @@ namespace Business.Constants
         public static string GetBrandByBrandId = "Marka Id'sine göre getirildi";
         public static string CarCountOfBrandError = "Marka limiti aşıldığı için yeni ürün eklenemiyor";
         public static string CarDeleted = "Araç silindi";
+        public static string RentalLimitExceded = "Kiralama sayısını aştınız";
     }
 }

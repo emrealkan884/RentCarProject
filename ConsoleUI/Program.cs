@@ -11,7 +11,7 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
 
-            CarManager carManager = new CarManager(new EfCarDal());
+            CarManager carManager = new CarManager(new EfCarDal(),new RentalManager(new EfRentalDal()));
 
             //DeleteMethod(carManager);
             //AddMethod(carManager);

@@ -20,18 +20,18 @@ namespace Business.Concrete
     public class CarManager:ICarService
     {
         ICarDal _carDal;
-        public CarManager(ICarDal carDal)
+        IRentalService _rentalService;//eğer rental sayısı 15 i geçtiyse sisteme yeni araç eklenemez.(Bu kodun önemi CarManager içide Brand ile alakalı işlem yapmak)
+        public CarManager(ICarDal carDal,IRentalService rentalService) //Bir manager içerisinde kendi Dal ı hariç başka bir exception yapamayız
         {
             _carDal = carDal;
+            _rentalService = rentalService;
         }
 
         [ValidationAspect(typeof(CarValidator))]//Add methodunu doğrula CarValidator'deki kurallara göre.
         public IResult Add(Car car)
         {
-            //Validation(Doğrulama) = nesnenin(car) yapısal olarak uygun olup olmadığını kontrol etmeye doğrulama denir.
-            //Business Codes(iş kuralı) = Örneğin ehliyet alacak birisine ehliyet verip vermeyeceğiniz.Motordan 70 aldı mı vs.
 
-            IResult result = BusinessRules.Run(CheckIfProductCountOfBrandCorrect(car.BrandId));
+            IResult result = BusinessRules.Run(CheckIfCarCountOfBrandCorrect(car.BrandId),CheckIfRentalLimitExceded());
             if (result!=null)
             {
                 return result;
@@ -82,7 +82,10 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarUpdated);
         }
 
-        private IResult CheckIfProductCountOfBrandCorrect(int brandId)
+
+
+
+        private IResult CheckIfCarCountOfBrandCorrect(int brandId)
         {
             var result = _carDal.GetAll(p => p.BrandId == brandId).Count;
             if (result >= 10)
@@ -92,6 +95,15 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
+        private IResult CheckIfRentalLimitExceded()
+        {
+            var result = _rentalService.GetAll().Data.Count;
+            if (result >= 15)
+            {
+                return new ErrorResult(Messages.RentalLimitExceded);
+            }
+            return new SuccessResult();
+        }
 
     }
 }
